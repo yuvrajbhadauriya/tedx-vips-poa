@@ -17,19 +17,6 @@
         .ted-red { color: #E62B1E; }
         .bg-ted-red { background-color: #E62B1E; }
         .bg-card { background-color: #1F2937; }
-        .timeline-item {
-            border-left: 3px solid #E62B1E;
-            transition: all 0.3s ease;
-        }
-        .timeline-item:hover {
-            background-color: #2b3a4f;
-            transform: translateY(-5px);
-        }
-        .timeline-item .time {
-            background-color: #E62B1E;
-            color: white;
-            font-weight: 700;
-        }
         .event-card {
             background: linear-gradient(145deg, #2a384a, #1c2633);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -55,7 +42,7 @@
             background-color: #1F2937;
             margin: 10% auto;
             padding: 2rem;
-            border: 1px solid #888;
+            border: 1px solid #4B5563;
             width: 80%;
             max-width: 600px;
             border-radius: 10px;
@@ -91,22 +78,17 @@
             </div>
         </section>
 
-        <!-- Day 1 Timeline Section -->
-        <section id="day1-timeline" class="my-12">
-            <h2 class="text-3xl font-bold text-center mb-8">Day 1: Performance Schedule</h2>
-            <div id="timeline-container" class="relative space-y-8 max-w-4xl mx-auto">
-                <!-- Timeline items will be injected here by JS -->
-            </div>
-        </section>
-
     </main>
 
     <!-- Modal for Event Details -->
     <div id="eventModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <h3 id="modalTitle" class="text-3xl font-bold ted-red mb-4"></h3>
-            <p id="modalDescription" class="text-gray-300 text-lg"></p>
+            <h3 id="modalTitle" class="text-3xl font-bold ted-red mb-2"></h3>
+            <p id="modalDescription" class="text-gray-300 text-lg mb-4"></p>
+            <hr class="border-gray-600 my-4">
+            <h4 class="text-xl font-bold text-white mb-2">Requirements:</h4>
+            <p id="modalRequirements" class="text-gray-300"></p>
         </div>
     </div>
     
@@ -118,33 +100,22 @@
 
     <script>
         const events = [
-            { title: "Classical x Western Fusion", category: "Musical", description: "Violin, flute, and sitar blend with jazz, lo-fi, or electronic beats. Ideal for a chill-to-hype transition." },
-            { title: "Antrakshar", category: "Musical", description: "Classic Bollywood meets modern stage energy. Engaging and nostalgic — perfect for audience participation." },
-            { title: "Tabla vs Beatbox", category: "Beat-Driven", description: "A thrilling face-off between traditional percussion and vocal beats. Rhythmic intensity with a modern twist." },
-            { title: "Rap Battle", category: "Beat-Driven", description: "Student rappers go mic-to-mic on themes like campus life, hustle, and identity. Raw, rhythmic, and electric." },
-            { title: "Slam Poetry", category: "Spoken", description: "Themes: TED-style innovation, identity, social issues, youth life. Deeply emotional and TED-aligned." },
-            { title: "Stand-Up Comedy", category: "Spoken", description: "Observational humor about student life and culture. Light-hearted, inclusive, and highly relatable." },
-            { title: "Musical Theatre", category: "Theatrical", description: "A compact and powerful play that tells a story through song, dialogue, and drama." },
-            { title: "Contemporary Dance", category: "Dance", description: "Emotionally gripping — explores themes through expressive movement. Ideal for a TED-style visual storytelling moment." },
-            { title: "Folk x Modern Remix", category: "Dance", description: "Blends tradition with trend — high-energy, cultural fusion. Examples: Garba x EDM, Bhangra x Afrobeat." },
-            { title: "Hip-Hop Crew Set", category: "Dance", description: "Explosive group choreography by 3.14 Crew. A crowd energizer before the DJ night." },
-            { title: "Fashion Show", category: "Misc", description: "Invited fashion societies showcase diversity and identity in a stylish, vibrant, and inclusive ramp walk." },
-            { title: "Magic & Illusion", category: "Misc", description: "Mind-blowing sleight of hand, illusions, and interaction to keep the audience guessing and engaged." }
-        ];
-
-        const timelineData = [
-            { time: "12:10 PM", event: "Indian Classical x Western Fusion", duration: "20 min" },
-            { time: "12:35 PM", event: "Slam Poetry", duration: "20 min" },
-            { time: "01:00 PM", event: "Tabla vs Beatbox Fusion", duration: "20 min" },
-            { time: "01:25 PM", event: "Stand-Up Comedy", duration: "20 min" },
-            { time: "01:50 PM", event: "Break + Live Art", duration: "30 min" },
-            { time: "02:20 PM", event: "Antrakshar – Bollywood Jam", duration: "20 min" },
-            { time: "03:05 PM", event: "Musical Theatre Play", duration: "15 min" },
-            { time: "03:25 PM", event: "Folk Dance x Modern Remix", duration: "20 min" },
-            { time: "04:35 PM", event: "Rap Battle", duration: "20 min" },
-            { time: "05:00 PM", event: "Contemporary Dance", duration: "20 min" },
-            { time: "05:45 PM", event: "Fashion Show", duration: "20 min" },
-            { time: "06:20 PM", event: "DJ Night Begins", duration: "Until 8:15 PM" }
+            { title: "Classical x Western Fusion", category: "Musical", description: "Violin, flute, and sitar blend with jazz, lo-fi, or electronic beats.", requirements: "3 Cordless Mics, 2 Instrument Mics, Stage Monitors, Mood Lighting." },
+            { title: "Antrakshar", category: "Musical", description: "Classic Bollywood meets modern stage energy. Engaging and nostalgic.", requirements: "2 Handheld Mics, Audio Playback System, On-screen Lyrics (optional)." },
+            { title: "Tabla vs Beatbox", category: "Beat-Driven", description: "A thrilling face-off between traditional percussion and vocal beats.", requirements: "1 High-quality Mic for Beatboxer, 1 Instrument Mic for Tabla, Center Stage Spotlight." },
+            { title: "Rap Battle", category: "Beat-Driven", description: "Student rappers go mic-to-mic on themes like campus life and hustle.", requirements: "2 Handheld Mics, DJ Console for Beats, High-energy Lighting." },
+            { title: "Slam Poetry", category: "Spoken", description: "Deeply emotional and TED-aligned performances on innovation and identity.", requirements: "1 Condenser Mic on Stand, Single Spotlight, Minimalist Stage." },
+            { title: "Stand-Up Comedy", category: "Spoken", description: "Observational humor about student life and culture.", requirements: "1 Handheld Mic, Stool, General Stage Wash Lighting." },
+            { title: "Musical Theatre", category: "Theatrical", description: "A compact and powerful play that tells a story through song and drama.", requirements: "2-4 Lapel Mics, Playback System for Music, Specific Prop List, Dynamic Lighting." },
+            { title: "The Resume Monologue", category: "Theatrical", description: "A hard-hitting monologue revealing the struggles behind a polished resume.", requirements: "1 Lapel Mic, Projector/Screen for Visuals, Single Follow Spotlight." },
+            { title: "Contemporary Dance", category: "Dance", description: "Emotionally gripping performance exploring themes through movement.", requirements: "Wide, Unobstructed Stage, Music Playback, Theatrical Lighting (Gobos, Colors)." },
+            { title: "Folk x Modern Remix", category: "Dance", description: "Blends tradition with trend. High-energy cultural fusion.", requirements: "High-energy Music Playback, Colorful/Dynamic Lighting, Large Stage Area." },
+            { title: "Hip-Hop Crew Set", category: "Dance", description: "Explosive group choreography. A crowd energizer before the DJ night.", requirements: "Powerful Sound System, Strobe Lights, Haze Machine (optional), Large Stage." },
+            { title: "Hustle Showcase", category: "Theatrical", description: "A reverse fashion walk telling powerful stories of the daily hustle.", requirements: "1 Narrator Mic, Ramp/Catwalk, Multiple Follow Spotlights, Themed Props." },
+            { title: "Human vs AI Creative Duel", category: "Tech-Driven", description: "A live duel where a human creative competes against an AI model.", requirements: "Large Projector/Screen, Fast Internet, 2 Mics, Podium/Table for Human." },
+            { title: "AI x Music Experience", category: "Tech-Driven", description: "An AI-generated soundscape evolves from hustle-noise to a peaceful melody.", requirements: "High-quality Surround Sound, Projector for Visuals, Dim/Ambient Lighting." },
+            { title: "Mind Maze Mentalist", category: "Interactive", description: "A live act of mind-reading and illusion themed on the psychology of stress.", requirements: "1 Handheld Mic, Small Table, General Audience Lighting, Specific Props per Act." },
+            { title: "Hustle Simulator", category: "Interactive", description: "A live crowd game where the audience makes decisions using color cards.", requirements: "1 Host Mic, Projector for Questions, Pre-distributed Color Cards for Audience." }
         ];
 
         // Populate Event Grid
@@ -156,32 +127,21 @@
                 <h3 class="font-bold text-lg text-white">${event.title}</h3>
                 <p class="text-sm ted-red">${event.category}</p>
             `;
-            card.onclick = () => openModal(event.title, event.description);
+            card.onclick = () => openModal(event.title, event.description, event.requirements);
             eventGrid.appendChild(card);
-        });
-
-        // Populate Timeline
-        const timelineContainer = document.getElementById('timeline-container');
-        timelineData.forEach(item => {
-            const timelineItem = document.createElement('div');
-            timelineItem.className = 'timeline-item ml-6 md:ml-12 p-4 rounded-lg bg-card shadow-md relative';
-            timelineItem.innerHTML = `
-                <div class="absolute -left-5 top-5 w-10 h-10 rounded-full time flex items-center justify-center text-xs" style="transform: translateX(-50%);">${item.time.split(' ')[0]}</div>
-                <h3 class="font-bold text-xl text-white ml-8">${item.event}</h3>
-                <p class="text-gray-400 ml-8">${item.duration}</p>
-            `;
-            timelineContainer.appendChild(timelineItem);
         });
 
         // Modal functionality
         const modal = document.getElementById('eventModal');
         const modalTitle = document.getElementById('modalTitle');
         const modalDescription = document.getElementById('modalDescription');
+        const modalRequirements = document.getElementById('modalRequirements');
         const closeButton = document.querySelector('.close-button');
 
-        function openModal(title, description) {
+        function openModal(title, description, requirements) {
             modalTitle.textContent = title;
             modalDescription.textContent = description;
+            modalRequirements.textContent = requirements;
             modal.style.display = 'block';
         }
 
