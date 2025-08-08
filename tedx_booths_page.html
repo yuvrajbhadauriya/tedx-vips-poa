@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEDxVIPS - Activity Booths & Mini Events</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #111111;
+            color: #E5E7EB;
+        }
+        .ted-red { color: #E62B1E; }
+        .bg-card { background-color: #1F2937; }
+        .event-card {
+            background: linear-gradient(145deg, #2a384a, #1c2633);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .event-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: #1F2937;
+            margin: 10% auto;
+            padding: 2rem;
+            border: 1px solid #4B5563;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="p-6 text-center">
+        <h1 class="text-4xl md:text-6xl font-black" style="font-family: 'Inter', sans-serif;">Activity Booths & <span class="ted-red">Mini Events</span></h1>
+        <p class="text-lg text-gray-400 mt-2">The Interactive Soul of TEDxVIPS</p>
+    </header>
+
+    <main class="container mx-auto max-w-6xl p-4 md:p-8">
+
+        <section id="booths" class="my-12">
+            <h2 class="text-3xl font-bold text-center mb-8">Booth Showcase</h2>
+            <div id="booth-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                <!-- Booth cards will be injected here by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal for Booth Details -->
+    <div id="boothModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="modalTitle" class="text-3xl font-bold ted-red mb-2"></h3>
+            <p id="modalGoal" class="text-gray-300 text-lg mb-4"></p>
+            <hr class="border-gray-600 my-4">
+            <h4 class="text-xl font-bold text-white mb-2">Setup & Execution:</h4>
+            <p id="modalExecution" class="text-gray-300"></p>
+        </div>
+    </div>
+    
+    <footer class="text-center p-6 text-gray-500">
+        <a href="javascript:window.close()" class="bg-red-600 text-white font-bold py-2 px-6 rounded-full hover:bg-red-700 transition-colors">
+            &larr; Close Window
+        </a>
+    </footer>
+
+    <script>
+        const booths = [
+            { title: "Creative Photo Booth", category: "Social", goal: "Encourage social sharing with hashtags like #TEDxVIPS5Moments.", execution: "Vibrant backdrop with TEDx branding, props (glasses, quote bubbles, etc.). Volunteers guide the queue and encourage tagging the TEDxVIPS page." },
+            { title: "Idea Capsule", category: "Reflective", goal: "Attendees write a letter to their future self or a dream they want to pursue.", execution: "Table with writing material and a locked box. Volunteers collect entries, digitize them, and schedule them to be emailed 6 months later." },
+            { title: "Puzzle & Brain Zone", category: "Interactive", goal: "Engage minds while encouraging small group interaction.", execution: "Tables with Jenga, Rubik’s cubes, and lateral thinking puzzles. Volunteers help demonstrate puzzles; no competition, just play." },
+            { title: "DIY Badge Making", category: "Creative", goal: "Self-expression: “What’s your TEDx persona?”", execution: "Craft table with blank badges, markers, and stickers. Volunteers assist with materials and a photo corner for finished badges." },
+            { title: "Balloon Wall: Pop an Idea", category: "Interactive", goal: "Surprise and instant engagement.", execution: "A wall covered in balloons containing slips with dares, quotes, and questions. Volunteers guide one person at a time and refill the wall as needed." },
+            { title: "Dear Stranger Letters", category: "Reflective", goal: "Attendees anonymously write kind or insightful letters to be shared randomly.", execution: "Letter writing table with prompts. Volunteers shuffle and hand out random letters towards the evening." },
+            { title: "The GPT Oracle Booth", category: "Tech", goal: "Provide a playful yet insightful “life path” prediction using AI.", execution: "Volunteers input hand traits or birth data into a form. GPT generates a short, themed prediction which is printed or spoken aloud." },
+            { title: "Astro Mirror", category: "Creative", goal: "Generate a fictional TEDx persona based on the attendee's zodiac sign.", execution: "A tablet or form for birthdate input. GPT maps the sign to a creative persona (e.g., “The Cosmic Builder”) and prints a mini-certificate." },
+            { title: "Inner Type Quiz", category: "Reflective", goal: "Attendees discover their archetype (Visionary, Rebel, Healer, etc.).", execution: "Quiz forms or digital inputs. Volunteers assist, and the result is announced with a custom TEDx-style talk title." },
+            { title: "Echo of You", category: "Tech", goal: "Let people voice personal thoughts which GPT turns into poetic quotes.", execution: "A quiet booth with a mic or form. Volunteers cue participants with questions, and GPT transforms the input live into a printed card." }
+        ];
+
+        // Populate Booth Grid
+        const boothGrid = document.getElementById('booth-grid');
+        booths.forEach(booth => {
+            const card = document.createElement('div');
+            card.className = 'event-card p-4 rounded-lg shadow-lg text-center';
+            card.innerHTML = `
+                <h3 class="font-bold text-lg text-white">${booth.title}</h3>
+                <p class="text-sm ted-red">${booth.category}</p>
+            `;
+            card.onclick = () => openModal(booth.title, booth.goal, booth.execution);
+            boothGrid.appendChild(card);
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('boothModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalGoal = document.getElementById('modalGoal');
+        const modalExecution = document.getElementById('modalExecution');
+        const closeButton = document.querySelector('.close-button');
+
+        function openModal(title, goal, execution) {
+            modalTitle.textContent = title;
+            modalGoal.textContent = goal;
+            modalExecution.textContent = execution;
+            modal.style.display = 'block';
+        }
+
+        closeButton.onclick = () => modal.style.display = 'none';
+        window.onclick = (event) => {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>
