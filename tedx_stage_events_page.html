@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEDxVIPS 2025 - Stage Events Lineup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #111111;
+            color: #E5E7EB;
+        }
+        .ted-red { color: #E62B1E; }
+        .bg-ted-red { background-color: #E62B1E; }
+        .bg-card { background-color: #1F2937; }
+        .timeline-item {
+            border-left: 3px solid #E62B1E;
+            transition: all 0.3s ease;
+        }
+        .timeline-item:hover {
+            background-color: #2b3a4f;
+            transform: translateY(-5px);
+        }
+        .timeline-item .time {
+            background-color: #E62B1E;
+            color: white;
+            font-weight: 700;
+        }
+        .event-card {
+            background: linear-gradient(145deg, #2a384a, #1c2633);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .event-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: #1F2937;
+            margin: 10% auto;
+            padding: 2rem;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="p-6 text-center">
+        <h1 class="text-4xl md:text-6xl font-black" style="font-family: 'Inter', sans-serif;">Stage <span class="ted-red">Events</span></h1>
+        <p class="text-lg text-gray-400 mt-2">The Heartbeat of TEDxVIPS Season 5</p>
+    </header>
+
+    <main class="container mx-auto max-w-6xl p-4 md:p-8">
+
+        <!-- Event Categories Section -->
+        <section id="categories" class="my-12">
+            <h2 class="text-3xl font-bold text-center mb-8">Event Showcase</h2>
+            <div id="event-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                <!-- Event cards will be injected here by JS -->
+            </div>
+        </section>
+
+        <!-- Day 1 Timeline Section -->
+        <section id="day1-timeline" class="my-12">
+            <h2 class="text-3xl font-bold text-center mb-8">Day 1: Performance Schedule</h2>
+            <div id="timeline-container" class="relative space-y-8 max-w-4xl mx-auto">
+                <!-- Timeline items will be injected here by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal for Event Details -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="modalTitle" class="text-3xl font-bold ted-red mb-4"></h3>
+            <p id="modalDescription" class="text-gray-300 text-lg"></p>
+        </div>
+    </div>
+    
+    <footer class="text-center p-6 text-gray-500">
+        <a href="javascript:window.close()" class="bg-ted-red text-white font-bold py-2 px-6 rounded-full hover:bg-red-700 transition-colors">
+            &larr; Close Window
+        </a>
+    </footer>
+
+    <script>
+        const events = [
+            { title: "Classical x Western Fusion", category: "Musical", description: "Violin, flute, and sitar blend with jazz, lo-fi, or electronic beats. Ideal for a chill-to-hype transition." },
+            { title: "Antrakshar", category: "Musical", description: "Classic Bollywood meets modern stage energy. Engaging and nostalgic — perfect for audience participation." },
+            { title: "Tabla vs Beatbox", category: "Beat-Driven", description: "A thrilling face-off between traditional percussion and vocal beats. Rhythmic intensity with a modern twist." },
+            { title: "Rap Battle", category: "Beat-Driven", description: "Student rappers go mic-to-mic on themes like campus life, hustle, and identity. Raw, rhythmic, and electric." },
+            { title: "Slam Poetry", category: "Spoken", description: "Themes: TED-style innovation, identity, social issues, youth life. Deeply emotional and TED-aligned." },
+            { title: "Stand-Up Comedy", category: "Spoken", description: "Observational humor about student life and culture. Light-hearted, inclusive, and highly relatable." },
+            { title: "Musical Theatre", category: "Theatrical", description: "A compact and powerful play that tells a story through song, dialogue, and drama." },
+            { title: "Contemporary Dance", category: "Dance", description: "Emotionally gripping — explores themes through expressive movement. Ideal for a TED-style visual storytelling moment." },
+            { title: "Folk x Modern Remix", category: "Dance", description: "Blends tradition with trend — high-energy, cultural fusion. Examples: Garba x EDM, Bhangra x Afrobeat." },
+            { title: "Hip-Hop Crew Set", category: "Dance", description: "Explosive group choreography by 3.14 Crew. A crowd energizer before the DJ night." },
+            { title: "Fashion Show", category: "Misc", description: "Invited fashion societies showcase diversity and identity in a stylish, vibrant, and inclusive ramp walk." },
+            { title: "Magic & Illusion", category: "Misc", description: "Mind-blowing sleight of hand, illusions, and interaction to keep the audience guessing and engaged." }
+        ];
+
+        const timelineData = [
+            { time: "12:10 PM", event: "Indian Classical x Western Fusion", duration: "20 min" },
+            { time: "12:35 PM", event: "Slam Poetry", duration: "20 min" },
+            { time: "01:00 PM", event: "Tabla vs Beatbox Fusion", duration: "20 min" },
+            { time: "01:25 PM", event: "Stand-Up Comedy", duration: "20 min" },
+            { time: "01:50 PM", event: "Break + Live Art", duration: "30 min" },
+            { time: "02:20 PM", event: "Antrakshar – Bollywood Jam", duration: "20 min" },
+            { time: "03:05 PM", event: "Musical Theatre Play", duration: "15 min" },
+            { time: "03:25 PM", event: "Folk Dance x Modern Remix", duration: "20 min" },
+            { time: "04:35 PM", event: "Rap Battle", duration: "20 min" },
+            { time: "05:00 PM", event: "Contemporary Dance", duration: "20 min" },
+            { time: "05:45 PM", event: "Fashion Show", duration: "20 min" },
+            { time: "06:20 PM", event: "DJ Night Begins", duration: "Until 8:15 PM" }
+        ];
+
+        // Populate Event Grid
+        const eventGrid = document.getElementById('event-grid');
+        events.forEach(event => {
+            const card = document.createElement('div');
+            card.className = 'event-card p-4 rounded-lg shadow-lg text-center';
+            card.innerHTML = `
+                <h3 class="font-bold text-lg text-white">${event.title}</h3>
+                <p class="text-sm ted-red">${event.category}</p>
+            `;
+            card.onclick = () => openModal(event.title, event.description);
+            eventGrid.appendChild(card);
+        });
+
+        // Populate Timeline
+        const timelineContainer = document.getElementById('timeline-container');
+        timelineData.forEach(item => {
+            const timelineItem = document.createElement('div');
+            timelineItem.className = 'timeline-item ml-6 md:ml-12 p-4 rounded-lg bg-card shadow-md relative';
+            timelineItem.innerHTML = `
+                <div class="absolute -left-5 top-5 w-10 h-10 rounded-full time flex items-center justify-center text-xs" style="transform: translateX(-50%);">${item.time.split(' ')[0]}</div>
+                <h3 class="font-bold text-xl text-white ml-8">${item.event}</h3>
+                <p class="text-gray-400 ml-8">${item.duration}</p>
+            `;
+            timelineContainer.appendChild(timelineItem);
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('eventModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const closeButton = document.querySelector('.close-button');
+
+        function openModal(title, description) {
+            modalTitle.textContent = title;
+            modalDescription.textContent = description;
+            modal.style.display = 'block';
+        }
+
+        closeButton.onclick = () => modal.style.display = 'none';
+        window.onclick = (event) => {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+    </script>
+</body>
+</html>
