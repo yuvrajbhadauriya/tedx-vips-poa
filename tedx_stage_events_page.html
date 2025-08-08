@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEDxVIPS 2025 - Stage Events Lineup</title>
+    <title>TEDxVIPS - Custom Event Ticketing System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,143 +15,119 @@
             color: #E5E7EB;
         }
         .ted-red { color: #E62B1E; }
-        .bg-ted-red { background-color: #E62B1E; }
         .bg-card { background-color: #1F2937; }
-        .event-card {
-            background: linear-gradient(145deg, #2a384a, #1c2633);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
+        .section-title::after {
+            content: ''; display: block; width: 50px; height: 3px;
+            background-color: #E62B1E; margin-top: 8px;
         }
-        .event-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.8);
-            backdrop-filter: blur(5px);
-        }
-        .modal-content {
-            background-color: #1F2937;
-            margin: 10% auto;
-            padding: 2rem;
-            border: 1px solid #4B5563;
-            width: 80%;
-            max-width: 600px;
-            border-radius: 10px;
-            animation: fadeIn 0.5s;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+        li { margin-bottom: 0.5rem; }
     </style>
 </head>
 <body class="antialiased">
 
     <header class="p-6 text-center">
-        <h1 class="text-4xl md:text-6xl font-black" style="font-family: 'Inter', sans-serif;">Stage <span class="ted-red">Events</span></h1>
-        <p class="text-lg text-gray-400 mt-2">The Heartbeat of TEDxVIPS Season 5</p>
+        <h1 class="text-4xl md:text-6xl font-black" style="font-family: 'Inter', sans-serif;">Custom Event <span class="ted-red">Ticketing System</span></h1>
+        <p class="text-lg text-gray-400 mt-2">Project Overview</p>
     </header>
 
-    <main class="container mx-auto max-w-6xl p-4 md:p-8">
+    <main class="container mx-auto max-w-4xl p-4 md:p-8 space-y-12">
 
-        <!-- Event Categories Section -->
-        <section id="categories" class="my-12">
-            <h2 class="text-3xl font-bold text-center mb-8">Event Showcase</h2>
-            <div id="event-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                <!-- Event cards will be injected here by JS -->
+        <section id="about">
+            <h2 class="text-3xl font-bold section-title mb-4">About the Project</h2>
+            <div class="bg-card p-6 rounded-lg text-gray-300 space-y-4">
+                <p>This project is a complete, self-hosted ticketing system designed to be adaptable for any event. It provides a seamless and secure way to manage ticket sales without relying on third-party partners. The system consists of a public-facing customer portal for ticket applications and a secure, private admin dashboard for event organizers to verify payments, approve submissions, and manage the entire process from start to finish.</p>
+                <p class="font-semibold text-white">The entire system is live and accessible at:</p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="https://yuvrajbhadauriya.pythonanywhere.com/" target="_blank" class="flex-1 text-center bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition">Customer Page</a>
+                    <a href="https://yuvrajbhadauriya.pythonanywhere.com/admin/" target="_blank" class="flex-1 text-center bg-gray-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-700 transition">Admin Login</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="why">
+            <h2 class="text-3xl font-bold section-title mb-4">Why This System Was Built</h2>
+            <div class="bg-card p-6 rounded-lg text-gray-300">
+                <p class="mb-4">Building a custom ticketing system from scratch offers several key advantages over using a pre-existing ticketing partner:</p>
+                <ul class="list-disc list-inside">
+                    <li><strong class="text-white">Full Control:</strong> Event organizers have complete ownership and control over the ticketing process, data, and branding.</li>
+                    <li><strong class="text-white">Cost-Effective:</strong> It eliminates commission fees, directing all revenue to the event's bank account (saved ~₹70,000 on the initial event).</li>
+                    <li><strong class="text-white">Enhanced Security:</strong> Built with robust security features, including unique, unguessable QR codes for each ticket to prevent forgery.</li>
+                    <li><strong class="text-white">Customized Workflow:</strong> The manual verification process is tailored specifically to the team's needs.</li>
+                    <li><strong class="text-white">Professional Branding:</strong> Generated tickets can be custom-designed with the event's specific branding.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="how-it-works">
+            <h2 class="text-3xl font-bold section-title mb-4">How It Works</h2>
+            
+            <div class="my-8">
+                <img src="https://googleusercontent.com/file_content/16" alt="Ticketing System Flowchart" class="w-full max-w-lg mx-auto rounded-lg shadow-lg">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-card p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-white mb-3">For the Customer:</h3>
+                    <ol class="list-decimal list-inside text-gray-300 space-y-2">
+                        <li>Visits the public portal and sees the payment QR code.</li>
+                        <li>After paying, fills out a form with name, email, transaction ID, and a payment screenshot.</li>
+                        <li>Receives a "Thank You" and can track their ticket status.</li>
+                        <li>Once approved, receives a PDF ticket via email and can download it from the status page.</li>
+                    </ol>
+                </div>
+                <div class="bg-card p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-white mb-3">For the Admin Team:</h3>
+                    <ol class="list-decimal list-inside text-gray-300 space-y-2">
+                        <li>Logs into the secure Django Administration dashboard.</li>
+                        <li>Reviews new submissions with attendee details and payment screenshots.</li>
+                        <li>Approves a ticket by changing its status from "Pending" to "Approved".</li>
+                        <li>Selects approved submissions and uses a one-click action to email the secure PDF tickets.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="features">
+            <h2 class="text-3xl font-bold section-title mb-4">Core Features</h2>
+            <div class="bg-card p-6 rounded-lg text-gray-300 columns-1 md:columns-2 gap-x-8">
+                <ul class="list-disc list-inside">
+                    <li>Customer Submission Portal</li>
+                    <li>Secure Admin Dashboard</li>
+                    <li>Manual Payment Verification</li>
+                    <li>Automated Ticket ID Generation</li>
+                    <li>Dual-ID Security System (QR + UUID)</li>
+                    <li>Automated PDF Generation</li>
+                    <li>Automated Emailing</li>
+                    <li>Ticket Status Tracking</li>
+                    <li>Ticket Preview & Download</li>
+                    <li>Admin Audit Trail</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="tech-stack">
+            <h2 class="text-3xl font-bold section-title mb-4">Technology Stack</h2>
+            <div class="bg-card p-6 rounded-lg text-gray-300">
+                <ul class="list-disc list-inside">
+                    <li><strong class="text-white">Backend:</strong> Python with Django</li>
+                    <li><strong class="text-white">Frontend:</strong> HTML with Tailwind CSS</li>
+                    <li><strong class="text-white">Database:</strong> SQLite (local) & PostgreSQL (production)</li>
+                    <li><strong class="text-white">PDF Generation:</strong> reportlab</li>
+                    <li><strong class="text-white">QR Code Generation:</strong> qrcode</li>
+                    <li><strong class="text-white">Email Service:</strong> Gmail via Django SMTP</li>
+                    <li><strong class="text-white">Hosting:</strong> PythonAnywhere</li>
+                    <li><strong class="text-white">Version Control:</strong> Git & GitHub</li>
+                </ul>
             </div>
         </section>
 
     </main>
-
-    <!-- Modal for Event Details -->
-    <div id="eventModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h3 id="modalTitle" class="text-3xl font-bold ted-red mb-2"></h3>
-            <p id="modalDescription" class="text-gray-300 text-lg mb-4"></p>
-            <hr class="border-gray-600 my-4">
-            <h4 class="text-xl font-bold text-white mb-2">Requirements:</h4>
-            <p id="modalRequirements" class="text-gray-300"></p>
-        </div>
-    </div>
     
     <footer class="text-center p-6 text-gray-500">
-        <a href="javascript:window.close()" class="bg-ted-red text-white font-bold py-2 px-6 rounded-full hover:bg-red-700 transition-colors">
+        <a href="javascript:window.close()" class="bg-red-600 text-white font-bold py-2 px-6 rounded-full hover:bg-red-700 transition-colors">
             &larr; Close Window
         </a>
     </footer>
 
-    <script>
-        const events = [
-            { title: "Classical x Western Fusion", category: "Musical", description: "Violin, flute, and sitar blend with jazz, lo-fi, or electronic beats.", requirements: "3 Cordless Mics, 2 Instrument Mics, Stage Monitors, Mood Lighting." },
-            { title: "Antrakshar", category: "Musical", description: "Classic Bollywood meets modern stage energy. Engaging and nostalgic.", requirements: "2 Handheld Mics, Audio Playback System, On-screen Lyrics (optional)." },
-            { title: "Tabla vs Beatbox", category: "Beat-Driven", description: "A thrilling face-off between traditional percussion and vocal beats.", requirements: "1 High-quality Mic for Beatboxer, 1 Instrument Mic for Tabla, Center Stage Spotlight." },
-            { title: "Rap Battle", category: "Beat-Driven", description: "Student rappers go mic-to-mic on themes like campus life and hustle.", requirements: "2 Handheld Mics, DJ Console for Beats, High-energy Lighting." },
-            { title: "Slam Poetry", category: "Spoken", description: "Deeply emotional and TED-aligned performances on innovation and identity.", requirements: "1 Condenser Mic on Stand, Single Spotlight, Minimalist Stage." },
-            { title: "Stand-Up Comedy", category: "Spoken", description: "Observational humor about student life and culture.", requirements: "1 Handheld Mic, Stool, General Stage Wash Lighting." },
-            { title: "Musical Theatre", category: "Theatrical", description: "A compact and powerful play that tells a story through song and drama.", requirements: "2-4 Lapel Mics, Playback System for Music, Specific Prop List, Dynamic Lighting." },
-            { title: "The Resume Monologue", category: "Theatrical", description: "A hard-hitting monologue revealing the struggles behind a polished resume.", requirements: "1 Lapel Mic, Projector/Screen for Visuals, Single Follow Spotlight." },
-            { title: "Contemporary Dance", category: "Dance", description: "Emotionally gripping performance exploring themes through movement.", requirements: "Wide, Unobstructed Stage, Music Playback, Theatrical Lighting (Gobos, Colors)." },
-            { title: "Folk x Modern Remix", category: "Dance", description: "Blends tradition with trend. High-energy cultural fusion.", requirements: "High-energy Music Playback, Colorful/Dynamic Lighting, Large Stage Area." },
-            { title: "Hip-Hop Crew Set", category: "Dance", description: "Explosive group choreography. A crowd energizer before the DJ night.", requirements: "Powerful Sound System, Strobe Lights, Haze Machine (optional), Large Stage." },
-            { title: "Hustle Showcase", category: "Theatrical", description: "A reverse fashion walk telling powerful stories of the daily hustle.", requirements: "1 Narrator Mic, Ramp/Catwalk, Multiple Follow Spotlights, Themed Props." },
-            { title: "Human vs AI Creative Duel", category: "Tech-Driven", description: "A live duel where a human creative competes against an AI model.", requirements: "Large Projector/Screen, Fast Internet, 2 Mics, Podium/Table for Human." },
-            { title: "AI x Music Experience", category: "Tech-Driven", description: "An AI-generated soundscape evolves from hustle-noise to a peaceful melody.", requirements: "High-quality Surround Sound, Projector for Visuals, Dim/Ambient Lighting." },
-            { title: "Mind Maze Mentalist", category: "Interactive", description: "A live act of mind-reading and illusion themed on the psychology of stress.", requirements: "1 Handheld Mic, Small Table, General Audience Lighting, Specific Props per Act." },
-            { title: "Hustle Simulator", category: "Interactive", description: "A live crowd game where the audience makes decisions using color cards.", requirements: "1 Host Mic, Projector for Questions, Pre-distributed Color Cards for Audience." }
-        ];
-
-        // Populate Event Grid
-        const eventGrid = document.getElementById('event-grid');
-        events.forEach(event => {
-            const card = document.createElement('div');
-            card.className = 'event-card p-4 rounded-lg shadow-lg text-center';
-            card.innerHTML = `
-                <h3 class="font-bold text-lg text-white">${event.title}</h3>
-                <p class="text-sm ted-red">${event.category}</p>
-            `;
-            card.onclick = () => openModal(event.title, event.description, event.requirements);
-            eventGrid.appendChild(card);
-        });
-
-        // Modal functionality
-        const modal = document.getElementById('eventModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDescription = document.getElementById('modalDescription');
-        const modalRequirements = document.getElementById('modalRequirements');
-        const closeButton = document.querySelector('.close-button');
-
-        function openModal(title, description, requirements) {
-            modalTitle.textContent = title;
-            modalDescription.textContent = description;
-            modalRequirements.textContent = requirements;
-            modal.style.display = 'block';
-        }
-
-        closeButton.onclick = () => modal.style.display = 'none';
-        window.onclick = (event) => {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        };
-
-    </script>
 </body>
 </html>
